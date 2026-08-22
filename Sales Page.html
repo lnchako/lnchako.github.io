@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lynell Nchako — Data Analyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --panel: #131313;
+    --white: #f2f2f0;
+    --gray: #8a8a86;
+    --red: #e0342a;
+    --red-dim: #7a1712;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; }
+
+  ::selection { background: var(--red); color: var(--black); }
+
+  .mono {
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 0.02em;
+  }
+
+  /* ---------- Layout shell ---------- */
+  .wrap {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  header.nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid #1e1e1e;
+  }
+  header.nav .wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 56px;
+    max-width: 920px;
+  }
+  header.nav .brand {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.02em;
+  }
+  header.nav .brand .dot { color: var(--red); }
+  header.nav nav a {
+    text-decoration: none;
+    color: var(--gray);
+    font-size: 13px;
+    margin-left: 26px;
+    font-family: 'IBM Plex Mono', monospace;
+    transition: color 0.15s ease;
+  }
+  header.nav nav a:hover { color: var(--white); }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    padding: 90px 0 70px;
+    position: relative;
+  }
+  .eyebrow {
+    font-size: 12px;
+    color: var(--red);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    margin-bottom: 22px;
+    display: block;
+  }
+  .hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(40px, 7vw, 68px);
+    line-height: 1.02;
+    letter-spacing: -0.01em;
+  }
+  .hero h1 .accent { color: var(--red); }
+  .hero p.lead {
+    margin-top: 24px;
+    max-width: 520px;
+    font-size: 17px;
+    color: #c7c7c3;
+  }
+
+  /* Signature bar-chart motif */
+  .barviz {
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    height: 100px;
+    margin-top: 56px;
+  }
+  .barviz .bar {
+    flex: 1;
+    background: #1c1c1c;
+    border-top: 2px solid #2c2c2c;
+    position: relative;
+    animation: rise 1s cubic-bezier(.2,.8,.2,1) both;
+  }
+  .barviz .bar.hi {
+    background: var(--red-dim);
+    border-top: 2px solid var(--red);
+  }
+  .barviz .bar span {
+    position: absolute;
+    top: -20px;
+    left: 0;
+    font-size: 10px;
+    color: var(--gray);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .barviz .bar.hi span { color: var(--red); }
+  @keyframes rise {
+    from { transform: scaleY(0); transform-origin: bottom; }
+    to { transform: scaleY(1); transform-origin: bottom; }
+  }
+
+  /* ---------- Section shared ---------- */
+  section { padding: 64px 0; border-top: 1px solid #1a1a1a; }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 40px;
+  }
+  .section-head h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+  }
+  .section-head .tag {
+    font-size: 12px;
+    color: var(--gray);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* ---------- Project card ---------- */
+  .project {
+    background: var(--panel);
+    border: 1px solid #1f1f1f;
+    border-radius: 6px;
+    padding: 32px;
+    transition: border-color 0.2s ease;
+  }
+  .project:hover { border-color: #333; }
+  .project .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .project h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 21px;
+    font-weight: 500;
+  }
+  .project .meta {
+    font-size: 12px;
+    color: var(--gray);
+    font-family: 'IBM Plex Mono', monospace;
+    margin-top: 6px;
+  }
+  .project p.desc {
+    margin-top: 18px;
+    color: #c7c7c3;
+    font-size: 15px;
+    max-width: 640px;
+  }
+
+  .callout {
+    margin-top: 22px;
+    border-left: 3px solid var(--red);
+    background: #150c0c;
+    padding: 14px 18px;
+    font-size: 14px;
+    color: #e8e2e0;
+  }
+  .callout .label {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--red);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 6px;
+  }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    margin-top: 24px;
+    background: #1f1f1f;
+    border: 1px solid #1f1f1f;
+  }
+  .stat-grid .cell {
+    background: var(--panel);
+    padding: 16px 14px;
+  }
+  .stat-grid .cell .num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .stat-grid .cell.hi .num { color: var(--red); }
+  .stat-grid .cell .lbl {
+    font-size: 11px;
+    color: var(--gray);
+    font-family: 'IBM Plex Mono', monospace;
+    margin-top: 4px;
+  }
+
+  .links { margin-top: 24px; display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    font-size: 13px;
+    font-family: 'IBM Plex Mono', monospace;
+    padding: 10px 16px;
+    border-radius: 4px;
+    border: 1px solid #2c2c2c;
+    color: var(--white);
+    transition: all 0.15s ease;
+  }
+  .btn:hover { border-color: var(--red); color: var(--red); }
+  .btn.primary {
+    background: var(--red);
+    border-color: var(--red);
+    color: var(--black);
+    font-weight: 500;
+  }
+  .btn.primary:hover { background: #ff4436; color: var(--black); }
+
+  /* ---------- About ---------- */
+  .about p { color: #c7c7c3; font-size: 15px; max-width: 620px; }
+  .toolrow { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 10px; }
+  .tool {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--gray);
+    border: 1px solid #262626;
+    padding: 6px 12px;
+    border-radius: 3px;
+  }
+
+  /* ---------- Footer ---------- */
+  footer {
+    padding: 40px 0 60px;
+    border-top: 1px solid #1a1a1a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  footer .mono { color: var(--gray); font-size: 12px; }
+  footer .flinks a {
+    text-decoration: none;
+    font-size: 13px;
+    margin-left: 20px;
+    color: var(--gray);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  footer .flinks a:hover { color: var(--red); }
+  footer .flinks a:first-child { margin-left: 0; }
+
+  @media (max-width: 600px) {
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    header.nav nav a { margin-left: 16px; }
+    .project { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <div class="brand">LYNELL<span class="dot">.</span>NCHAKO</div>
+    <nav>
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section class="hero" style="border-top:none;">
+    <span class="eyebrow mono">Data Analyst</span>
+    <h1>I turn rows of<br>data into <span class="accent">decisions.</span></h1>
+    <p class="lead">Excel-first analyst who finds the question hiding inside a spreadsheet — then answers it with pivot tables, not guesswork.</p>
+
+    <div class="barviz" aria-hidden="true">
+      <div class="bar" style="height:62%; animation-delay:0.05s;"><span>CEN</span></div>
+      <div class="bar" style="height:82%; animation-delay:0.15s;"><span>EAST</span></div>
+      <div class="bar hi" style="height:47%; animation-delay:0.25s;"><span>SOUTH</span></div>
+      <div class="bar" style="height:100%; animation-delay:0.35s;"><span>WEST</span></div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="section-head">
+      <h2>Selected Work</h2>
+      <span class="tag">01 / 01</span>
+    </div>
+
+    <div class="project">
+      <div class="row">
+        <div>
+          <h3>Regional Sales Analysis — Retail Superstore</h3>
+          <div class="meta">EXCEL · PIVOTTABLES · PIVOTCHARTS · SUMIF / COUNTIF</div>
+        </div>
+      </div>
+
+      <p class="desc">
+        The South region brought in about half the revenue of the West — 9,800 orders
+        in, I set out to find out whether that was a spending problem or a reach problem,
+        because the fix for each is completely different.
+      </p>
+
+      <div class="callout">
+        <span class="label">Key Finding</span>
+        South customers have the <em>highest</em> average order value of any region ($243) —
+        the entire gap comes from order volume (1,598 orders vs. West's 3,140), not spending per customer.
+      </div>
+
+      <div class="stat-grid">
+        <div class="cell hi"><div class="num">$2.26M</div><div class="lbl">TOTAL SALES</div></div>
+        <div class="cell"><div class="num">9,800</div><div class="lbl">ORDERS ANALYZED</div></div>
+        <div class="cell"><div class="num">4 yrs</div><div class="lbl">DATE RANGE</div></div>
+        <div class="cell hi"><div class="num">1.96x</div><div class="lbl">WEST vs SOUTH ORDER GAP</div></div>
+      </div>
+
+      <div class="links">
+        <a class="btn primary" href="https://github.com/Inchako/superstore-regional-sales-analysis" target="_blank" rel="noopener">View on GitHub →</a>
+        <a class="btn" href="https://github.com/Inchako/superstore-regional-sales-analysis/blob/main/Superstore%20Regional%20Analysis.pdf" target="_blank" rel="noopener">Read full analysis (PDF)</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="about">
+    <div class="section-head">
+      <h2>About</h2>
+      <span class="tag">02</span>
+    </div>
+    <p>
+      I'm a data analyst who likes finding the one question a dataset can actually answer,
+      then answering it cleanly — no more analysis than the question needs, no fewer caveats
+      than it deserves. Excel is my primary tool: PivotTables, PivotCharts, and formula-driven
+      cross-checks that make sure every number can be traced back to how it was built.
+    </p>
+    <div class="toolrow">
+      <span class="tool">Excel</span>
+      <span class="tool">PivotTables</span>
+      <span class="tool">SQL</span>
+      <span class="tool">Data Storytelling</span>
+      <span class="tool">Dashboarding</span>
+    </div>
+  </section>
+
+</div>
+
+<footer id="contact">
+  <div class="wrap" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; max-width:920px; width:100%;">
+    <span class="mono">© 2026 Lynell Nchako</span>
+    <div class="flinks">
+      <a href="https://github.com/Inchako" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:you@example.com">Email</a>
+      <a href="#" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
